@@ -6,6 +6,18 @@ const coinGeckoClient = new CoinGecko();
 export default function Home(props) {
   const { data } = props.result;
 
+  const formatPercent = number =>
+  `${new Number(number).toFixed(2)}%`
+
+  const formatDollar = (number, maxSignificantDigits) =>
+    new Intl.NumberFormat(
+    'en-US',
+    {
+      style: 'currency',
+      currency: 'usd',
+      maxSignificantDigits
+    }).format(number);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -40,11 +52,11 @@ export default function Home(props) {
                   'text-success'
                 ) : 'text-danger'}
                 >
-                {coin.price_change_percentage_24h}
+                {formatPercent(coin.price_change_percentage_24h)}
                 </span>
               </td>
-              <td>{coin.current_price}</td>
-              <td>{coin.market_cap}</td>
+              <td>{formatDollar(coin.current_price, 20)}</td>
+              <td>{formatDollar(coin.market_cap, 12)}</td>
             </tr>
           )) }
         </tbody>
