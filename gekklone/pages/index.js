@@ -15,7 +15,7 @@ export default function Home(props) {
 
       <h1>Gekklone</h1>
 
-      <table>
+      <table className= 'table'>
         <thead>
           <tr>
             <th>Symbol</th>
@@ -27,8 +27,22 @@ export default function Home(props) {
         <tbody>
           { data.map(coin => (
             <tr key={coin.id}>
-              <td>{coin.symbol.toUpperCase()}</td>
-              <td>{coin.price_change_percentage_24h}</td>
+              <td>
+                <img
+                 src={coin.image}
+                 style={{width: 25, height: 25, marginRight: 10}}
+                />
+                {coin.symbol.toUpperCase()}
+              </td>
+              <td>
+                <span
+                className= {coin.price_change_percentage_24h > 0 ? (
+                  'text-success'
+                ) : 'text-danger'}
+                >
+                {coin.price_change_percentage_24h}
+                </span>
+              </td>
               <td>{coin.current_price}</td>
               <td>{coin.market_cap}</td>
             </tr>
